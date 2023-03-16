@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "name": "Mohamed Adel Mohamed Saleh",
+    "department": "office",
+    "job": "Engineer",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 1,
+    "name": "Mohamed Tareek Kamel Saleh",
+    "department": "Area 2",
+    "job": "IT",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 2,
+    "name": "Ahmed Adel Mohamed Saleh",
+    "department": "Area 3",
+    "job": "Worker",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 3,
+    "name": "Ahmed Mohamed Abd El Mohsen",
+    "department": "Area 1",
+    "job": "IT",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 4,
+    "name": "Mohamed Adel Mohamed Saleh",
+    "department": "office",
+    "job": "IT",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 5,
+    "name": "Mohamed Adel Mohamed Saleh",
+    "department": "office",
+    "job": "Worker",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 6,
+    "name": "Mohamed Adel Mohamed Saleh",
+    "department": "Area 3",
+    "job": "worker",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 7,
+    "name": "Ahmed Adel Mohamed Saleh",
+    "department": "Area 3",
+    "job": "Worker",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  },
+  {
+    "id": 8,
+    "name": "Ahmed Adel Mohamed Saleh",
+    "department": "Area 3",
+    "job": "Worker",
+    "hiredIn": "2021-12-16,10:00",
+    "img": "www.img.com"
+  }
+]
