@@ -23,11 +23,11 @@ app.use((req, res, next) => {
 });
 
 //# Routes
-app.use('/api/v1/events', eventsRoutes);
-app.use('/api/v1/employees', employeesRoutes);
-app.use('/api/v1/attendance', attendancesRoutes);
-app.use('/api/v1/frames', framesRoutes);
-app.use('/api/v1/users', userRoutes);
+app.use('/api/events', eventsRoutes);
+app.use('/api/employees', employeesRoutes);
+app.use('/api/attendance', attendancesRoutes);
+app.use('/api/frames', framesRoutes);
+app.use('/api/users', userRoutes);
 
 //# HANDLING UNHANDLED ROUTES
 app.all('*', (req, res, next) => {
