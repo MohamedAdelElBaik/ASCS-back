@@ -11,7 +11,7 @@ router
   .post(authController.portect, employeesController.addEmployees);
 router
   .route('/:id')
-  .get(authController.portect, employeesController.getEmployee)
+  .get(employeesController.getEmployee)
   .patch(employeesController.updateEmployee)
   .delete(
     authController.portect,
