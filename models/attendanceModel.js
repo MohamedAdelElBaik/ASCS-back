@@ -11,6 +11,6 @@ const attendanceSchema = new mongoose.Schema({
   },
 });
 
-const attendance = mongoose.model('attendance', attendanceSchema);
+const attendance = mongoose.model('attendances_till_fixes', attendanceSchema);
 
 module.exports = attendance;
