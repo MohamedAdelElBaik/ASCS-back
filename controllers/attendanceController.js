@@ -32,7 +32,7 @@ exports.getAttendance = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    attendance,
+    data: attendance.employees,
   });
 });
 
