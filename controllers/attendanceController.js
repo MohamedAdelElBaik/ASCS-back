@@ -15,9 +15,7 @@ exports.getAllAttendances = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     results: attendance.length,
-    data: {
-      attendance,
-    },
+    data: attendance,
   });
 });
 
@@ -34,9 +32,7 @@ exports.getAttendance = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    data: {
-      attendance,
-    },
+    attendance,
   });
 });
 
