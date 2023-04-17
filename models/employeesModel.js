@@ -1,5 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const employeeSchema = new mongoose.Schema({
   name: {
@@ -33,6 +33,29 @@ const employeeSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A employee must have a jop'],
   },
+  email: {
+    type: String,
+    unique: true,
+    lowercase: true,
+    validate: [validator.isEmail, 'Please provide a valid email'],
+  },
+  phoneNumber: String,
+  shiftStartAt: {
+    type: Number,
+    default: 8,
+  },
+  shiftEndAt: {
+    type: Number,
+    default: 16,
+  },
+  salary: {
+    type: Number,
+    required: [true, ' A employee must have a Salary'],
+  },
+  lastEdit: {
+    type: Date,
+    default: Date.now(),
+  },
   description: {
     type: String,
     trim: true,
@@ -45,7 +68,7 @@ const employeeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  image: String,
+  imagePath: String,
   attendance: [Date],
   violations: [String],
 });

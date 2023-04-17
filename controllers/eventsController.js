@@ -1,23 +1,24 @@
 const Event = require('../models/eventsModel');
+const APIFeatures = require('../utils/apiFeatures');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-exports.getAllEvents = async (req, res) => {
-  try {
-    const events = await Event.find();
+exports.getAllEvents = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Event.find(), req.query)
+    .filter()
+    .sort()
+    .fildLimit()
+    .paginat();
+  const events = await features.query;
 
-    res.status(200).json({
-      status: 'success',
-      results: events.length,
-      data: {
-        events,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
+  res.status(200).json({
+    status: 'success',
+    results: events.length,
+    data: {
+      events,
+    },
+  });
+});
 
 exports.addEvent = async (req, res) => {
   // console.log('----', req.body);
