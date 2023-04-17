@@ -71,6 +71,13 @@ const employeeSchema = new mongoose.Schema({
   imagePath: String,
   attendance: [Date],
   violations: [String],
+  employee_id: {
+    type: String,
+    unique: true,
+    required: [true, 'An Employee must have Id'],
+    minlength: 6,
+    maxlength: [6, 'length of id must be 6 characters'],
+  },
 });
 
 const employee = mongoose.model('employee', employeeSchema);
