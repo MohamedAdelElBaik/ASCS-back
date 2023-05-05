@@ -39,3 +39,21 @@ exports.addEvent = async (req, res) => {
     });
   }
 };
+
+exports.getEvents = catchAsync(async (req, res, next) => {
+  const [day, month, year] = req.params.id.split('-');
+
+  const query = {
+    arriveAt: {
+      $gte: new Date(`${year}-${month}-${day}`),
+      $lt: new Date(`${year}-${month}-${day}T23:59:59.999Z`),
+    },
+  };
+
+  const event = await Event.find(query);
+
+  res.status(200).json({
+    status: 'success',
+    data: event,
+  });
+});

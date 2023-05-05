@@ -9,4 +9,6 @@ router
   .get(eventsController.getAllEvents)
   .post(eventsController.addEvent);
 
+router.route('/:id').get(eventsController.getEvents);
+
 module.exports = router;
