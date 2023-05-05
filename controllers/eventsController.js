@@ -54,6 +54,7 @@ exports.getEvents = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
+    results: event.length,
     data: event,
   });
 });
