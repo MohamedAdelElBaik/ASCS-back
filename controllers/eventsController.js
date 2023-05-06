@@ -61,8 +61,9 @@ exports.getEvents = catchAsync(async (req, res, next) => {
   };
 
   events.forEach((event) => {
-    if (event.type in typeCounts) {
-      typeCounts[event.type]++;
+    const { type } = event;
+    if (typeCounts[type] !== undefined) {
+      typeCounts[type]++;
     }
   });
 
