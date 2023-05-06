@@ -52,11 +52,19 @@ exports.getEvents = catchAsync(async (req, res, next) => {
 
   const events = await Event.find(query);
 
-  const typeCounts = events.reduce((acc, event) => {
-    const { type } = event;
-    acc[type] = acc[type] ? acc[type] + 1 : 1;
-    return acc;
-  }, {});
+  const typeCounts = {
+    smoke: 0,
+    unauthorized: 0,
+    fight: 0,
+    phone: 0,
+    ppe: 0,
+  };
+
+  events.forEach((event) => {
+    if (event.type in typeCounts) {
+      typeCounts[event.type]++;
+    }
+  });
 
   res.status(200).json({
     status: 'success',
