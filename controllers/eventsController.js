@@ -50,11 +50,18 @@ exports.getEvents = catchAsync(async (req, res, next) => {
     },
   };
 
-  const event = await Event.find(query);
+  const events = await Event.find(query);
+
+  const typeCounts = events.reduce((acc, event) => {
+    const { type } = event;
+    acc[type] = acc[type] ? acc[type] + 1 : 1;
+    return acc;
+  }, {});
 
   res.status(200).json({
     status: 'success',
-    results: event.length,
-    data: event,
+    results: events.length,
+    typeCounts,
+    data: events,
   });
 });
