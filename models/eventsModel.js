@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-  name: {
+  type: {
     type: String,
     required: [true, 'A event must have a type'],
     trim: true,
   },
-  description: {
-    type: String,
-    trim: true,
+  info: {
+    type: Object,
   },
   arriveAt: {
     type: Date,
