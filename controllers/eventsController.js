@@ -21,8 +21,6 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
 });
 
 exports.addEvent = async (req, res) => {
-  // console.log('----', req.body);
-
   try {
     const newEvent = await Event.create(req.body);
 
@@ -40,14 +38,67 @@ exports.addEvent = async (req, res) => {
   }
 };
 
-exports.getEvents = catchAsync(async (req, res, next) => {
-  const [day, month, year] = req.params.id.split('-');
+exports.getEventsForYear = catchAsync(async (req, res, next) => {
+  const year = req.params.year;
+
+  const startDate = new Date(`${year}-01-01T00:00:00.000Z`);
+  const endDate = new Date(`${year}-12-31T23:59:59.999Z`);
 
   const query = {
-    arriveAt: {
-      $gte: new Date(`${year}-${month}-${day}`),
-      $lt: new Date(`${year}-${month}-${day}T23:59:59.999Z`),
-    },
+    arriveAt: { $gte: startDate, $lt: endDate },
+  };
+
+  const events = await Event.find(query);
+
+  const countObj = {};
+  events.forEach((event) => {
+    countObj[event.type] = (countObj[event.type] || 0) + 1;
+  });
+
+  res.status(200).json({
+    status: 'success',
+    results: events.length,
+    types: countObj,
+    data: events,
+  });
+});
+
+exports.getEventsForMonth = catchAsync(async (req, res, next) => {
+  const year = req.params.year;
+  const month = req.params.month;
+
+  const startDate = new Date(`${year}-${month}-01T00:00:00.000Z`);
+  const endDate = new Date(`${year}-${month}-31T23:59:59.999Z`);
+
+  const query = {
+    arriveAt: { $gte: startDate, $lt: endDate },
+  };
+
+  const events = await Event.find(query);
+
+  const countObj = {};
+  events.forEach((event) => {
+    countObj[event.type] = (countObj[event.type] || 0) + 1;
+  });
+
+  res.status(200).json({
+    status: 'success',
+    results: events.length,
+    types: countObj,
+    data: events,
+  });
+});
+
+exports.getEventsForDay = catchAsync(async (req, res, next) => {
+  const year = req.params.year;
+  const month = req.params.month;
+  const day = req.params.day;
+
+  const startDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
+  const endDate = new Date(`${year}-${month}-${day}T23:59:59.999Z`);
+
+  const query = {
+    arriveAt: { $gte: startDate, $lt: endDate },
   };
 
   const events = await Event.find(query);

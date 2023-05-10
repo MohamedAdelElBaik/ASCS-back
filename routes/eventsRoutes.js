@@ -9,6 +9,8 @@ router
   .get(eventsController.getAllEvents)
   .post(eventsController.addEvent);
 
-router.route('/:id').get(eventsController.getEvents);
+router.route('/:year').get(eventsController.getEventsForYear);
+router.route('/:year/:month').get(eventsController.getEventsForMonth);
+router.route('/:year/:month/:day').get(eventsController.getEventsForDay);
 
 module.exports = router;
