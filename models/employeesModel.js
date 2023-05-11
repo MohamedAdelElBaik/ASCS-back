@@ -41,12 +41,12 @@ const employeeSchema = new mongoose.Schema({
   },
   phoneNumber: String,
   shiftStartAt: {
-    type: Number,
-    default: 8,
+    type: String,
+    default: '08:00',
   },
   shiftEndAt: {
-    type: Number,
-    default: 16,
+    type: String,
+    default: '16:00',
   },
   salary: {
     type: Number,
