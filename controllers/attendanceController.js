@@ -19,21 +19,64 @@ exports.getAllAttendances = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAttendance = catchAsync(async (req, res, next) => {
-  const attendance = await Attendance.findOne({ date: req.params.id });
-  // const employeesArry = attendance.employees.map((employee) => employee[1]);
+// exports.getAttendance = catchAsync(async (req, res, next) => {
+//   const attendance = await Attendance.findOne({ date: req.params.id });
 
-  // const employeesData = await employeesArry.map((id) =>
-  //   Employees.findOne({ employee_id: id })
-  // );
+//   res.status(200).json({
+//     status: 'success',
+//     data: attendance && attendance.employees,
+//   });
+// });
 
-  // // console.log(employeesArry);
-  // console.log(employeesData);
+const getEventRequest = (attendance, res) => {
+  const result = attendance.map((employeesData) => {
+    return {
+      employees: employeesData.employees.length,
+      _id: employeesData._id,
+      date: employeesData.date,
+    };
+  });
 
   res.status(200).json({
     status: 'success',
-    data: attendance && attendance.employees,
+    results: attendance.length,
+    data: result,
   });
+};
+
+const getDate = (params) => {
+  const year = params.year;
+  const month = params.month;
+  const day = params.day;
+
+  const startDate = new Date(
+    `${year}-${month || '01'}-${day || '01'}T00:00:00.000Z`
+  );
+  const endDate = new Date(
+    `${year}-${month || '12'}-${day || '31'}T23:59:59.999Z`
+  );
+
+  return {
+    date: { $gte: startDate, $lt: endDate },
+  };
+};
+
+exports.getAttendanceDay = catchAsync(async (req, res, next) => {
+  const attendance = await Attendance.find(getDate(req.params));
+
+  getEventRequest(attendance, res);
+});
+
+exports.getAttendanceMonth = catchAsync(async (req, res, next) => {
+  const attendance = await Attendance.find(getDate(req.params));
+
+  getEventRequest(attendance, res);
+});
+
+exports.getAttendanceYear = catchAsync(async (req, res, next) => {
+  const attendance = await Attendance.find(getDate(req.params));
+
+  getEventRequest(attendance, res);
 });
 
 exports.checkBody = (req, res, next) => {

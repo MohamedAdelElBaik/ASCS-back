@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const attendanceSchema = new mongoose.Schema({
   date: {
-    type: String,
+    type: Date,
     required: [true, 'A attendance must have a time'],
     unique: true,
   },
