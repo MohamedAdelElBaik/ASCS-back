@@ -11,12 +11,16 @@ router
 
 // router.route('/:id').get(attendancesController.getAttendance);
 
-router.route('/dashboard/:year').get(attendancesController.getAttendanceYear);
+router
+  .route('/dashboard/:year')
+  .get(attendancesController.getAttendanceDashYear);
 router
   .route('/dashboard/:year/:month')
-  .get(attendancesController.getAttendanceMonth);
+  .get(attendancesController.getAttendanceDashMonth);
 router
   .route('/dashboard/:year/:month/:day')
-  .get(attendancesController.getAttendanceDay);
+  .get(attendancesController.getAttendanceDashDay);
+
+router.route('/:year/:month/:day').get(attendancesController.getAttendanceDay);
 
 module.exports = router;

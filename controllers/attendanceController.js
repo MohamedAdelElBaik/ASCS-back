@@ -64,16 +64,26 @@ const getDate = (params) => {
 exports.getAttendanceDay = catchAsync(async (req, res, next) => {
   const attendance = await Attendance.find(getDate(req.params));
 
-  getEventRequest(attendance, res);
+  res.status(200).json({
+    status: 'success',
+    results: attendance[0].employees.length,
+    data: attendance[0],
+  });
 });
 
-exports.getAttendanceMonth = catchAsync(async (req, res, next) => {
+exports.getAttendanceDashDay = catchAsync(async (req, res, next) => {
   const attendance = await Attendance.find(getDate(req.params));
 
   getEventRequest(attendance, res);
 });
 
-exports.getAttendanceYear = catchAsync(async (req, res, next) => {
+exports.getAttendanceDashMonth = catchAsync(async (req, res, next) => {
+  const attendance = await Attendance.find(getDate(req.params));
+
+  getEventRequest(attendance, res);
+});
+
+exports.getAttendanceDashYear = catchAsync(async (req, res, next) => {
   const attendance = await Attendance.find(getDate(req.params));
 
   getEventRequest(attendance, res);
@@ -121,28 +131,3 @@ exports.addAttendances = (req, res) => {
     }
   );
 };
-
-// const arr = [
-//   ['2023-03-14T01:01:28.955Z', '111111'],
-//   ['2023-03-14T01:12:26.275Z', '121212'],
-//   ['2023-03-14T01:12:28.928Z', '131313'],
-//   ['2023-03-14T01:12:32.769Z', '111111'],
-//   ['2023-03-14T01:13:29.732Z', '121212'],
-//   ['2023-03-14T01:13:31.742Z', '131313'],
-//   ['2023-03-14T01:13:35.783Z', '111111'],
-//   ['2023-03-14T01:20:12.535Z', '121212'],
-//   ['2023-03-14T01:20:13.731Z', '131313'],
-//   ['2023-03-14T01:20:17.375Z', '111111'],
-//   ['2023-03-14T01:21:19.373Z', '121212'],
-//   ['2023-03-14T01:21:21.170Z', '131313'],
-//   ['2023-03-14T01:21:25.086Z', '111111'],
-//   ['2023-03-14T01:22:20.845Z', '121212'],
-//   ['2023-03-14T01:22:22.667Z', '131313'],
-//   ['2023-03-14T01:22:26.476Z', '111111'],
-//   ['2023-03-14T01:23:23.354Z', '121212'],
-//   ['2023-03-14T01:23:25.636Z', '131313'],
-//   ['2023-03-14T01:23:29.579Z', '111111'],
-//   ['2023-03-14T01:24:27.233Z', '121212'],
-//   ['2023-03-14T01:24:28.938Z', '131313'],
-//   ['2023-03-14T01:24:32.754Z', '111111'],
-// ];
