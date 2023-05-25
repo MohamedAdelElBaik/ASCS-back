@@ -64,10 +64,16 @@ const getDate = (params) => {
 exports.getAttendanceDay = catchAsync(async (req, res, next) => {
   const attendance = await Attendance.find(getDate(req.params));
 
+  const results =
+    attendance[0] && attendance[0].employees
+      ? attendance[0].employees.length
+      : 0;
+  const data = attendance[0] || {};
+
   res.status(200).json({
     status: 'success',
-    results: attendance[0].employees.length,
-    data: attendance[0],
+    results,
+    data,
   });
 });
 
