@@ -10,6 +10,7 @@ const employeesRoutes = require('./routes/employeesRoutes');
 const attendancesRoutes = require('./routes/attendancesRoutes');
 const framesRoutes = require('./routes/framesRoutes');
 const userRoutes = require('./routes/userRoutes');
+const imageRoutes = require('./routes/imageRoutes');
 
 app.use(cors());
 
@@ -28,6 +29,7 @@ app.use('/api/employees', employeesRoutes);
 app.use('/api/attendance', attendancesRoutes);
 app.use('/api/frames', framesRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/eventImages', imageRoutes);
 
 //# HANDLING UNHANDLED ROUTES
 app.all('*', (req, res, next) => {
