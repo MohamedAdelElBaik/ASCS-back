@@ -1,6 +1,6 @@
 const ImageModel = require('../models/imageModel');
 const cloud = require('../cloudinaryConfig');
-const fs = require('fs');
+// const fs = require('fs');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -21,7 +21,7 @@ exports.postImage = catchAsync(async (req, res, next) => {
   const result = await cloud.uploads(req.files[0].path);
 
   // console.log('---------------: ', result);
-  // console.log('result ------------- : ', req.body);
+  console.log('req.files ------------- : ', req.files);
 
   const { eventId, arriveAt } = req.body;
 
@@ -35,7 +35,7 @@ exports.postImage = catchAsync(async (req, res, next) => {
   image.save();
 
   // delete image local
-  fs.unlinkSync(req.files[0].path);
+  // fs.unlinkSync(req.files[0].path);
 
   res.json({
     message: 'success',
