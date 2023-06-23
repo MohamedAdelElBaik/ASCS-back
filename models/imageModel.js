@@ -9,18 +9,17 @@ const imageUpload = mongoose.Schema({
     type: String,
     required: true,
   },
-  eventId: {
+  imageId: {
     type: String,
     required: true,
+  },
+  imageTitle: {
+    type: String,
   },
   arriveAt: {
     type: Date,
     default: Date.now(),
   },
 });
-
-// const imageUpload = mongoose.model('Event', imageUpload);
-
-// module.exports = imageUpload;
 
 module.exports = mongoose.model('imageUpload', imageUpload);

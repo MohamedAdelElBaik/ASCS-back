@@ -14,8 +14,8 @@ exports.postImage = catchAsync(async (req, res, next) => {
     );
   }
 
-  if (!req.body.eventId) {
-    return next(new AppError(`You did not add eventId`, 404));
+  if (!req.body.imageId) {
+    return next(new AppError(`You did not add imageId`, 404));
   }
 
   const result = await cloud.uploads(req.files[0].path);
@@ -23,12 +23,13 @@ exports.postImage = catchAsync(async (req, res, next) => {
   // console.log('---------------: ', result);
   console.log('req.files ------------- : ', req.files);
 
-  const { eventId, arriveAt } = req.body;
+  const { imageId, arriveAt } = req.body;
 
   const imageDetails = {
     imageName: req.files[0].originalname,
+    imageTitle: req.files[0].fieldname,
     url: result.url,
-    eventId,
+    imageId,
     arriveAt,
   };
   const image = new ImageModel(imageDetails);
@@ -44,7 +45,7 @@ exports.postImage = catchAsync(async (req, res, next) => {
 });
 
 exports.getImage = async (req, res) => {
-  const images = await ImageModel.find({ eventId: req.params.id });
+  const images = await ImageModel.find({ imageId: req.params.id });
 
   res.status(200).json({
     status: 'success',
