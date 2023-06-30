@@ -2,6 +2,7 @@ const Event = require('../models/eventsModel');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const ImageModel = require('../models/imageModel');
 
 exports.getAllEvents = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Event.find(), req.query)
@@ -53,9 +54,7 @@ const getEventRequest = (events, res) => {
 };
 
 const getDate = (params) => {
-  const year = params.year;
-  const month = params.month;
-  const day = params.day;
+  const { year, month, day } = params;
 
   const startDate = new Date(
     `${year}-${month || '01'}-${day || '01'}T00:00:00.000Z`
@@ -69,20 +68,48 @@ const getDate = (params) => {
   };
 };
 
+const eventPlusImagesURLs = async (events) => {
+  const eventIds = events.map((event) => event.info.eventId);
+  const imageUrls = await ImageModel.find({
+    imageId: { $in: eventIds },
+  });
+
+  return events.map((event) => {
+    const imageUrlsList = imageUrls
+      //if there is imageId and eventId both are undefiend so it filter equal true
+      .filter((url) => url.imageId && url.imageId === event.info.eventId)
+      .map((result) => result.url);
+
+    event.info.imageUrls = imageUrlsList;
+
+    // console.log('imageUrlsList: ', imageUrlsList);
+    // console.log('event.info.eventId: ', event.info.eventId);
+    // console.log(
+    //   'event.info.eventId: ',
+    //   imageUrls.map((url) => url.imageId)
+    // );
+
+    return event;
+  });
+};
+
 exports.getEventsForYear = catchAsync(async (req, res, next) => {
   const events = await Event.find(getDate(req.params));
 
-  getEventRequest(events, res);
+  const eventsReslut = await eventPlusImagesURLs(events);
+  getEventRequest(eventsReslut, res);
 });
 
 exports.getEventsForMonth = catchAsync(async (req, res, next) => {
   const events = await Event.find(getDate(req.params));
 
-  getEventRequest(events, res);
+  const eventsReslut = await eventPlusImagesURLs(events);
+  getEventRequest(eventsReslut, res);
 });
 
 exports.getEventsForDay = catchAsync(async (req, res, next) => {
   const events = await Event.find(getDate(req.params));
 
-  getEventRequest(events, res);
+  const eventsReslut = await eventPlusImagesURLs(events);
+  getEventRequest(eventsReslut, res);
 });
