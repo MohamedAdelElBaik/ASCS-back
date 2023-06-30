@@ -11,6 +11,7 @@ const attendancesRoutes = require('./routes/attendancesRoutes');
 const framesRoutes = require('./routes/framesRoutes');
 const userRoutes = require('./routes/userRoutes');
 const imageRoutes = require('./routes/imageRoutes');
+const streamRoutes = require('./routes/streamRoutes');
 
 app.use(cors());
 
@@ -30,6 +31,7 @@ app.use('/api/attendance', attendancesRoutes);
 app.use('/api/frames', framesRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/eventImages', imageRoutes);
+app.use('/api/stream', streamRoutes);
 
 //# HANDLING UNHANDLED ROUTES
 app.all('*', (req, res, next) => {
