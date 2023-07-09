@@ -52,3 +52,12 @@ exports.getImage = async (req, res) => {
     images,
   });
 };
+
+exports.getAllImage = async (req, res) => {
+  const images = await ImageModel.find();
+
+  res.status(200).json({
+    status: 'success',
+    images,
+  });
+};

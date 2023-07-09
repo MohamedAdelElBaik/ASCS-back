@@ -16,6 +16,9 @@ const imageUpload = mongoose.Schema({
   imageTitle: {
     type: String,
   },
+  imageDescription: {
+    type: String,
+  },
   arriveAt: {
     type: Date,
     default: Date.now(),
