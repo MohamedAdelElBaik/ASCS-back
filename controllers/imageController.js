@@ -44,8 +44,17 @@ exports.postImage = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getImage = async (req, res) => {
-  const images = await ImageModel.find({ imageId: req.params.id });
+// exports.getImage = async (req, res) => {
+//   const images = await ImageModel.find({ imageId: req.params.id });
+
+//   res.status(200).json({
+//     status: 'success',
+//     images,
+//   });
+// };
+
+exports.getAllImage = async (req, res) => {
+  const images = await ImageModel.find();
 
   res.status(200).json({
     status: 'success',
@@ -53,8 +62,31 @@ exports.getImage = async (req, res) => {
   });
 };
 
-exports.getAllImage = async (req, res) => {
-  const images = await ImageModel.find();
+exports.getImage = async (req, res) => {
+  let images;
+  if (req.params.id === 'today') {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+
+    const startDate = new Date(
+      `${year}-${month.toString().padStart(2, '0')}-${day
+        .toString()
+        .padStart(2, '0')}T00:00:00.000Z`
+    );
+    const endDate = new Date(
+      `${year}-${month.toString().padStart(2, '0')}-${day
+        .toString()
+        .padStart(2, '0')}T23:59:59.999Z`
+    );
+
+    images = await ImageModel.find({
+      arriveAt: { $gte: startDate, $lt: endDate },
+    });
+  } else {
+    images = await ImageModel.find({ imageId: req.params.id });
+  }
 
   res.status(200).json({
     status: 'success',
