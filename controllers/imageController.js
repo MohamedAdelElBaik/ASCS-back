@@ -21,15 +21,16 @@ exports.postImage = catchAsync(async (req, res, next) => {
   const result = await cloud.uploads(req.files[0].path);
 
   // console.log('---------------: ', result);
-  console.log('req.files ------------- : ', req.files);
+  console.log('req.body ------------- : ', req.body);
 
-  const { imageId, arriveAt } = req.body;
+  const { imageId, arriveAt, imageDescription } = req.body;
 
   const imageDetails = {
     imageName: req.files[0].originalname,
     imageTitle: req.files[0].fieldname,
     url: result.url,
     imageId,
+    imageDescription,
     arriveAt,
   };
   const image = new ImageModel(imageDetails);
