@@ -37,7 +37,6 @@ exports.getEmployee = catchAsync(async (req, res, next) => {
 });
 
 exports.addEmployees = catchAsync(async (req, res, next) => {
-  // consoe.log('------', req.body);
   const employee = await Employees.create(req.body);
 
   res.status(201).json({
