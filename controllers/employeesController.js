@@ -53,7 +53,7 @@ exports.updateEmployee = catchAsync(async (req, res, next) => {
     runValidators: true,
   });
 
-  // handle error if there is no embloyee with that id
+  // handle error if there is no employee with that id
   if (!employee) {
     return next(new AppError(`No Employee found with that ID`, 404));
   }
