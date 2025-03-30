@@ -1,12 +1,12 @@
-const serverless = require('vercel-serverless');
+const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-// Load environment variables (for local testing, Vercel uses its own env setup)
+// Load environment variables (for local testing; Vercel uses its own env)
 dotenv.config({ path: '../config.env' });
 
 // Import your Express app
-const app = require('../app'); // Adjust path to point to app.js
+const app = require('../app'); // Adjust path if needed
 
 // MongoDB connection
 const connectDB = async () => {
@@ -26,5 +26,5 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Export as serverless function
-module.exports = serverless(app);
+// Export the Express app directly for Vercel
+module.exports = app;
