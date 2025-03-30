@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "start:prod": "SET NODE_ENV=production&&nodemon server.js",
+    "start:prod": "NODE_ENV=production node server.js", 
+    "start:vercel": "node api/index.js",
     "debug": "ndb server.js"
   },
   "author": "Moahmed Adel",
@@ -31,6 +32,7 @@
     "nodemailer": "^6.9.1",
     "prettier": "^2.8.3",
     "slugify": "^1.6.5",
-    "validator": "^13.9.0"
+    "validator": "^13.9.0",
+    "vercel-serverless": "^0.0.2" 
   }
 }
